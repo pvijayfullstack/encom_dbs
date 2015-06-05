@@ -22,3 +22,35 @@ production:
   pool: 5
   username: encom_dbs_32
   password:
+
+mysql:
+
+  development:
+    adapter: mysql
+    encoding: utf8
+    reconnect: false
+    database: encom_dbs_32_development
+    pool: 5
+    username: root
+    password:
+    host: localhost
+
+  test:
+    adapter: mysql
+    encoding: utf8
+    reconnect: false
+    database: encom_dbs_32_test
+    pool: 5
+    username: root
+    password:
+    host: localhost
+
+  production:
+    adapter: mysql
+    encoding: utf8
+    reconnect: false
+    database: encom_dbs_32_production
+    pool: 5
+    username: root
+    password:
+    host: localhost
