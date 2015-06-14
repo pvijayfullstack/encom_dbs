@@ -13,7 +13,8 @@ class Scenerio1Test < ActiveSupport::TestCase
 
   it 'basic model cross db save - using after_save' do
     user_new.account_create = true
-    user_new.save
+    assert user_new.save
+    assert Account.where(email: user_new.email).exists?
   end
 
 end
