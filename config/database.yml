@@ -1,5 +1,5 @@
 
-development:
+pg: &pg
   adapter: postgresql
   encoding: unicode
   database: encom_dbs_32_development
@@ -8,55 +8,39 @@ development:
   password:
   prepared_statements: false
 
+development:
+  <<: *pg
+  database: encom_dbs_32_development
+
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *pg
   database: encom_dbs_32_test
-  pool: 5
-  username: encom_dbs_32
-  password:
-  prepared_statements: false
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *pg
   database: encom_dbs_32_production
-  pool: 5
-  username: encom_dbs_32
-  password:
-  prepared_statements: false
 
 mysql:
 
-  development:
+  mysql: &mysql
     adapter: mysql
     encoding: utf8
     reconnect: false
-    database: encom_dbs_32_development
     pool: 5
     username: root
     password:
     host: localhost
     prepared_statements: false
+
+  development:
+    <<: *mysql
+    database: encom_dbs_32_development
 
   test:
-    adapter: mysql
-    encoding: utf8
-    reconnect: false
+    <<: *mysql
     database: encom_dbs_32_test
-    pool: 5
-    username: root
-    password:
-    host: localhost
-    prepared_statements: false
 
   production:
-    adapter: mysql
-    encoding: utf8
-    reconnect: false
+    <<: *mysql
     database: encom_dbs_32_production
-    pool: 5
-    username: root
-    password:
-    host: localhost
-    prepared_statements: false
+
