@@ -58,5 +58,24 @@ module EncomDbs32
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+
+    # config.after_initialize do
+
+    #   puts 'foo'
+
+    #   ActiveRecord::Base::PostgreSQLAdapter.class_eval do
+    #     include AbstractAdapterLogTagging
+    #   end
+
+    #   ActiveRecord::ConnectionAdapters::AbstractMysqlAdapter.class_eval do
+    #     include AbstractAdapterLogTagging
+    #   end
+
+    #   ActiveRecord::ConnectionAdapters::MysqlAdapter.class_eval do
+    #     include AbstractAdapterLogTagging
+    #   end
+
+    # end
   end
 end

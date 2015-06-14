@@ -6,7 +6,7 @@ class ActiveSupport::TestCase
 
   self.use_transactional_fixtures = false
 
-  before { spaceout_log }
+  before { warm_model_columns ; spaceout_log }
   after  { spaceout_log ; delete_all_data }
 
 
@@ -16,8 +16,12 @@ class ActiveSupport::TestCase
     [Account, MysqlUser]
   end
 
+  def warm_model_columns
+    all_models.each(&:columns)
+  end
+
   def delete_all_data
-    all_models.each { |model| model.delete_all }
+    all_models.each(&:delete_all)
   end
 
   def spaceout_log

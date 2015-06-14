@@ -4,7 +4,7 @@ notification :terminal_notifier
 
 group :ruby do
 
-  guard :minitest, all_on_start: false, spring: true do
+  guard :minitest, all_on_start: false, spring: false do
     # with Minitest::Unit
     watch(%r{^lib/(.+)\.rb$})     { |m| "test/#{m[1]}_test.rb" }
     watch(%r{^test/.+_test\.rb$})
