@@ -6,6 +6,7 @@ development:
   pool: 5
   username: encom_dbs_32
   password:
+  prepared_statements: false
 
 test:
   adapter: postgresql
@@ -14,6 +15,7 @@ test:
   pool: 5
   username: encom_dbs_32
   password:
+  prepared_statements: false
 
 production:
   adapter: postgresql
@@ -22,6 +24,7 @@ production:
   pool: 5
   username: encom_dbs_32
   password:
+  prepared_statements: false
 
 mysql:
 
@@ -34,6 +37,7 @@ mysql:
     username: root
     password:
     host: localhost
+    prepared_statements: false
 
   test:
     adapter: mysql
@@ -44,6 +48,7 @@ mysql:
     username: root
     password:
     host: localhost
+    prepared_statements: false
 
   production:
     adapter: mysql
@@ -54,3 +59,4 @@ mysql:
     username: root
     password:
     host: localhost
+    prepared_statements: false
