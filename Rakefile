@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-EncomDbs32::Application.load_tasks
+EncomDbs::Application.load_tasks

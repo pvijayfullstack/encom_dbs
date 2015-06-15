@@ -1,4 +1,4 @@
-EncomDbs32::Application.routes.draw do
+EncomDbs::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

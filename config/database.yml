@@ -2,23 +2,23 @@
 pg: &pg
   adapter: postgresql
   encoding: unicode
-  database: encom_dbs_32_development
+  database: encom_dbs_development
   pool: 5
-  username: encom_dbs_32
+  username: encom_dbs
   password:
   prepared_statements: false
 
 development:
   <<: *pg
-  database: encom_dbs_32_development
+  database: encom_dbs_development
 
 test:
   <<: *pg
-  database: encom_dbs_32_test
+  database: encom_dbs_test
 
 production:
   <<: *pg
-  database: encom_dbs_32_production
+  database: encom_dbs_production
 
 mysql:
 
@@ -34,13 +34,13 @@ mysql:
 
   development:
     <<: *mysql
-    database: encom_dbs_32_development
+    database: encom_dbs_development
 
   test:
     <<: *mysql
-    database: encom_dbs_32_test
+    database: encom_dbs_test
 
   production:
     <<: *mysql
-    database: encom_dbs_32_production
+    database: encom_dbs_production
 
