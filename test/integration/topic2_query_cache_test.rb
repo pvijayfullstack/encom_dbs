@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QueryCacheTest < ActionDispatch::IntegrationTest
+class Topic2QueryCacheTest < ActionDispatch::IntegrationTest
 
   class SQLCacheSubscriber
     class_attribute :log ; self.log = []
