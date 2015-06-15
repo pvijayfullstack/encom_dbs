@@ -1,12 +1,15 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'test_helper/sql_helper'
 
 class ActiveSupport::TestCase
 
+  include EncomDbsSQLHelper
+
   self.use_transactional_fixtures = false
 
-  before { warm_model_columns ; spaceout_log }
+  before { warm_model_columns ; clear_sqlcounter_log ; spaceout_log }
   after  { spaceout_log ; delete_all_data }
 
 
