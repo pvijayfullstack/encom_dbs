@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
 
   self.use_transactional_fixtures = false
 
-  before { warm_model_columns ; clear_sqlcounter_log ; spaceout_log }
+  before { warm_model_columns ; clear_subscriber_logs ; spaceout_log }
   after  { spaceout_log ; delete_all_data }
 
 
