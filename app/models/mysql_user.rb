@@ -4,7 +4,8 @@ class MysqlUser < MysqlBase
 
   attr_accessor :account_create
   after_save :account_create_do
-  attr_accessor :account_fails_validation
+  attr_accessor :account_fails_validation,
+                :account_raise_rollback
 
 
   private

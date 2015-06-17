@@ -12,6 +12,8 @@ class ActiveSupport::TestCase
   before { warm_model_columns ; clear_subscriber_logs ; spaceout_log }
   after  { spaceout_log ; delete_all_data }
 
+  let(:new_mysql_user) { MysqlUser.new email: 'foo@bar.com' }
+
 
   private
 
