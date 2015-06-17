@@ -8,7 +8,7 @@ class Scenario1Test < ActiveSupport::TestCase
   #  Base:  INSERT INTO "accounts" (...) VALUES (...) RETURNING "id"
   #  Base:  COMMIT
   # MySQL:  COMMIT
-
+  #
   it 'basic model cross db save' do
     new_mysql_user.account_create = true
     assert new_mysql_user.save
@@ -23,7 +23,7 @@ class Scenario1Test < ActiveSupport::TestCase
   #  Base:  BEGIN
   #  Base:  ROLLBACK
   # MySQL:  ROLLBACK
-
+  #
   it 'basic model cross db save - with exception raised' do
     new_mysql_user.account_create = true
     new_mysql_user.account_fails_validation = true
@@ -34,6 +34,7 @@ class Scenario1Test < ActiveSupport::TestCase
   end
 
 
+  # --------
   # TOPIC 3:
   # --------
 
@@ -42,7 +43,7 @@ class Scenario1Test < ActiveSupport::TestCase
   #  Base:  BEGIN
   #  Base:  ROLLBACK
   # MySQL:  COMMIT
-
+  #
   it 'basic model cross db save - with rollback raised' do
     new_mysql_user.account_create = true
     new_mysql_user.account_raise_rollback = true
