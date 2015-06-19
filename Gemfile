@@ -14,6 +14,7 @@ group :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest-spec-rails'
+  gem 'minitest-focus'
   gem 'terminal-notifier-guard'
 end
 

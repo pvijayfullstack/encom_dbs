@@ -76,6 +76,8 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
+    minitest-focus (1.1.1)
+      minitest (>= 4, < 6)
     minitest-spec-rails (4.7.7)
       minitest (~> 4.7)
       rails (>= 3.0, < 4.1)
@@ -152,6 +154,7 @@ DEPENDENCIES
   guard
   guard-minitest
   jquery-rails
+  minitest-focus
   minitest-spec-rails
   mysql
   pg
