@@ -131,6 +131,48 @@ class Scenario2Test < ActiveSupport::TestCase
   end
 
 
+  # MySQL:  BEGIN
+  # MySQL:  INSERT INTO `users` (`created_at`, `email`, `updated_at`) VALUES ('2015-06-19 19:55:39', 'foo@bar.com', '2015-06-19 19:55:39')
+  # MySQL:  INSERT INTO `posts` (`created_at`, `title`, `updated_at`, `user_id`) VALUES ('2015-06-19 19:55:39', 'Post 1', '2015-06-19 19:55:39', 53)
+  # MySQL:  INSERT INTO `posts` (`created_at`, `title`, `updated_at`, `user_id`) VALUES ('2015-06-19 19:55:39', 'Post 2', '2015-06-19 19:55:39', 53)
+  # MySQL:  COMMIT
 
+
+
+
+  it 'explicit - outer mysql and base - with autosave association' do
+    user = MysqlUser.find(new_user_with_two_new_posts.id) ; spaceout_log
+
+    # user.posts[1].title = nil
+    # user.save!
+    # raise user.reload.posts.map(&:title).inspect
+
+    # user.posts[1].title = nil
+    # user.posts[1].save!
+    # raise user.reload.posts.map(&:title).inspect
+
+  end
+
+
+  private
+
+  def multi_transaction
+    MysqlUser.transaction {
+      Account.transaction {
+        yield
+      }
+    }
+  end
+
+  let(:new_user_with_two_new_posts) do
+    new_mysql_user.posts.build title: 'Post 1'
+    new_mysql_user.posts.build title: 'Post 2'
+    new_mysql_user.save!
+    new_mysql_user
+  end
+
+  def new_user_with
+
+  end
 
 end

@@ -7,7 +7,7 @@ class MysqlUser < MysqlBase
   attr_accessor :account_fails_validation,
                 :account_raise_rollback
 
-  has_many :posts, class_name: 'Post'
+  has_many :posts, class_name: 'MysqlPost', foreign_key: :user_id, order: 'posts.title ASC'#, autosave: true
 
 
   private
