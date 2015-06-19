@@ -9,9 +9,9 @@ class Scenario1Test < ActiveSupport::TestCase
   #  Base:  COMMIT
   # MySQL:  COMMIT
   #
-  it 'basic model cross db save' do
+  it 'implicit cross model' do
     new_mysql_user.account_create = true
-    assert new_mysql_user.save
+    assert new_mysql_user.save!
     sql_log_matching(/BEGIN/).length.must_equal 2
     sql_log_matching(/COMMIT/).length.must_equal 2
     assert Account.where(email: new_mysql_user.email).exists?
@@ -24,10 +24,12 @@ class Scenario1Test < ActiveSupport::TestCase
   #  Base:  ROLLBACK
   # MySQL:  ROLLBACK
   #
-  it 'basic model cross db save - with exception raised' do
-    new_mysql_user.account_create = true
-    new_mysql_user.account_fails_validation = true
-    refute new_mysql_user.save
+  it 'implicit cross model - with exception raised' do
+    lambda {
+      new_mysql_user.account_create = true
+      new_mysql_user.account_fails_validation = true
+      refute new_mysql_user.save!
+    }.must_raise ActiveRecord::RecordInvalid
     sql_log_matching(/BEGIN/).length.must_equal 2
     sql_log_matching(/ROLLBACK/).length.must_equal 2
     refute Account.where(email: new_mysql_user.email).exists?
@@ -44,10 +46,10 @@ class Scenario1Test < ActiveSupport::TestCase
   #  Base:  ROLLBACK
   # MySQL:  COMMIT
   #
-  it 'basic model cross db save - with rollback raised' do
+  it 'implicit cross model - with rollback raised' do
     new_mysql_user.account_create = true
     new_mysql_user.account_raise_rollback = true
-    assert new_mysql_user.save
+    assert new_mysql_user.save!, 'ActiveRecord::Rollback is not re-raised!'
     sql_log_matching(/BEGIN/).length.must_equal 2
     sql_log_matching(/ROLLBACK/).length.must_equal 1
     sql_log_matching(/COMMIT/).length.must_equal 1
