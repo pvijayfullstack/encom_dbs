@@ -8,9 +8,9 @@ class MysqlUser < MysqlBase
                 :account_raise_rollback
 
   has_many :posts,
+           -> { order(:title) },
            class_name: 'MysqlPost',
            foreign_key: :user_id,
-           order: 'posts.title ASC',
            autosave: true
 
 

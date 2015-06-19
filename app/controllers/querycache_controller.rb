@@ -1,7 +1,5 @@
 class QuerycacheController < ApplicationController
 
-  respond_to :json
-
   def users
     user = -> { MysqlUser.find(params[:user_id]) }
     acct = -> { Account.find(params[:account_id]) }
