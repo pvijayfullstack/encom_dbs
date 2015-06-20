@@ -20,10 +20,8 @@ class Scenario2Test < ActiveSupport::TestCase
       Account.create! email: 'one@one.com'
       Account.create! email: 'two@two.com'
     end
-    # One transaction for MySQL connection.
     mysql_log_matching(/BEGIN/).length.must_equal 1
     mysql_log_matching(/COMMIT/).length.must_equal 1
-    # Janky multiple transactions for Base connection.
     base_log_matching(/BEGIN/).length.must_equal 2
     base_log_matching(/COMMIT/).length.must_equal 2
   end
@@ -47,10 +45,8 @@ class Scenario2Test < ActiveSupport::TestCase
       Account.create! email: 'one@one.com'
       Account.create! email: 'two@two.com'
     end
-    # One transaction for Base connection.
     base_log_matching(/BEGIN/).length.must_equal 1
     base_log_matching(/COMMIT/).length.must_equal 1
-    # Janky multiple transactions for MySQL connection.
     mysql_log_matching(/BEGIN/).length.must_equal 2
     mysql_log_matching(/COMMIT/).length.must_equal 2
   end
@@ -74,10 +70,8 @@ class Scenario2Test < ActiveSupport::TestCase
         Account.create! email: 'two@two.com'
       end
     end
-    # One transaction for MySQL connection.
     mysql_log_matching(/BEGIN/).length.must_equal 1
     mysql_log_matching(/COMMIT/).length.must_equal 1
-    # One transaction for Base connection.
     base_log_matching(/BEGIN/).length.must_equal 1
     base_log_matching(/COMMIT/).length.must_equal 1
   end
@@ -99,10 +93,8 @@ class Scenario2Test < ActiveSupport::TestCase
         end
       end
     }.must_raise ActiveRecord::RecordInvalid
-    # Rollback for MySQL connection.
     mysql_log_matching(/BEGIN/).length.must_equal 1
     mysql_log_matching(/ROLLBACK/).length.must_equal 1
-    # Rollback for Base connection.
     base_log_matching(/BEGIN/).length.must_equal 1
     base_log_matching(/ROLLBACK/).length.must_equal 1
   end
@@ -122,41 +114,74 @@ class Scenario2Test < ActiveSupport::TestCase
         assert new_mysql_user.save!, 'ActiveRecord::Rollback is not re-raised!'
       end
     end
-    # Rollback for MySQL connection.
     mysql_log_matching(/BEGIN/).length.must_equal 1
     mysql_log_matching(/COMMIT/).length.must_equal 1
-    # Rollback for Base connection.
     base_log_matching(/BEGIN/).length.must_equal 1
     base_log_matching(/COMMIT/).length.must_equal 1
   end
 
 
-
-
-  it 'explicit - outer mysql and base - with autosave association' do
-    user = MysqlUser.find(new_user_with_two_new_posts.id) ; spaceout_log
-    user.posts[1].title = nil
-    user.posts[1].validate_title = true
-    # user.posts[1].save!
+  #  Base:  BEGIN
+  # MySQL:  BEGIN
+  # MySQL:  SELECT `posts`.* FROM `posts`  WHERE `posts`.`user_id` = ?
+  # MySQL:  UPDATE `posts` SET `updated_at` = ?, `title` = NULL WHERE `posts`.`id` = ?
+  # MySQL:  ROLLBACK
+  #  Base:  ROLLBACK
+  #
+  it 'explicit - outer base and mysql - with autosave association statement invalid' do
+    saved_user_wposts
+    begin
+      ActiveRecord::Base.multi_transaction do
+        saved_user_wposts.posts[1].title = nil
+        saved_user_wposts.save!
+      end
+    rescue ActiveRecord::StatementInvalid => e
+      @statement_invalid = true
+    end
+    assert @statement_invalid
+    mysql_log_matching(/BEGIN/).length.must_equal 1
+    mysql_log_matching(/ROLLBACK/).length.must_equal 1
+    base_log_matching(/BEGIN/).length.must_equal 1
+    base_log_matching(/ROLLBACK/).length.must_equal 1
   end
+
+  #  Base:  BEGIN
+  # MySQL:  BEGIN
+  # MySQL:  SELECT `posts`.* FROM `posts`  WHERE `posts`.`user_id` = ?
+  # MySQL:  ROLLBACK
+  #  Base:  ROLLBACK
+  #
+  it 'explicit - outer base and mysql - with autosave association record invalid' do
+    saved_user_wposts
+    begin
+      ActiveRecord::Base.multi_transaction do
+        saved_user_wposts.posts[0].title = 'Post 1 [UPDATED]'
+        saved_user_wposts.posts[1].title = nil
+        saved_user_wposts.posts[1].validate_title = true
+        saved_user_wposts.save!
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      @record_invalid = true
+    end
+    assert @record_invalid
+    mysql_log_matching(/BEGIN/).length.must_equal 1
+    mysql_log_matching(/ROLLBACK/).length.must_equal 1
+    base_log_matching(/BEGIN/).length.must_equal 1
+    base_log_matching(/ROLLBACK/).length.must_equal 1
+  end
+
 
 
   private
 
-  def multi_transaction
-    MysqlUser.transaction {
-      Account.transaction {
-        yield
-      }
-    }
-  end
-
-  let(:new_user_with_two_new_posts) do
+  let(:saved_user_wposts) do
     new_mysql_user.posts.build title: 'Post 1'
     new_mysql_user.posts.build title: 'Post 2'
     new_mysql_user.save!
-    new_mysql_user
+    MysqlUser.find(new_mysql_user.id).tap do |user|
+      clear_subscriber_logs
+      spaceout_log
+    end
   end
-
 
 end
