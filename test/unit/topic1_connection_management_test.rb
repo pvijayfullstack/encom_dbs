@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TopicConnectionManagementTest < ActiveSupport::TestCase
+class Topic1ConnectionManagementTest < ActiveSupport::TestCase
 
   class MysqlEstablishConn < ActiveRecord::Base
     establish_connection configurations['mysql'][Rails.env]
