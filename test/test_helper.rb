@@ -19,7 +19,7 @@ class ActiveSupport::TestCase
   private
 
   def all_models
-    [Account, MysqlUser]
+    [Account, MysqlUser, MysqlPost]
   end
 
   def warm_model_columns
