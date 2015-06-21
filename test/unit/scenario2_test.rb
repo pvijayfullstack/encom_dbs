@@ -131,7 +131,7 @@ class Scenario2Test < ActiveSupport::TestCase
   it 'explicit - outer base and mysql - with autosave association statement invalid' do
     saved_user_wposts
     begin
-      ActiveRecord::Base.multi_transaction do
+      saved_user_wposts.multi_transaction do
         saved_user_wposts.posts[1].title = nil
         saved_user_wposts.save!
       end
@@ -154,7 +154,7 @@ class Scenario2Test < ActiveSupport::TestCase
   it 'explicit - outer base and mysql - with autosave association record invalid' do
     saved_user_wposts
     begin
-      ActiveRecord::Base.multi_transaction do
+      saved_user_wposts.multi_transaction do
         saved_user_wposts.posts[0].title = 'Post 1 [UPDATED]'
         saved_user_wposts.posts[1].title = nil
         saved_user_wposts.posts[1].validate_title = true
