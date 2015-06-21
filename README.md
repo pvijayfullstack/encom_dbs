@@ -1,7 +1,7 @@
 
 # Rails Multi-Database Best Practices Roundup
 
-For full details, please read the blog post here: http://technology.customink.com/blog/2015/06/14/rails-multi-database-best-practices-roundup
+For full details, please read the blog post here: http://technology.customink.com/blog/2015/06/22/rails-multi-database-best-practices-roundup
 
 ### Rails 4.2.x
 
