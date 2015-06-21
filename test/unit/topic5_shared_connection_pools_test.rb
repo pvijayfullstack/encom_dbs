@@ -24,13 +24,25 @@ class Topic5SharedConnectionPoolsTest < ActionDispatch::IntegrationTest
     my_connection_id.must_equal dj_connection_id
   end
 
-  it 'can respond to connected and remove_connection properly' do
+  it 'can query connected? properly' do
+    assert MysqlBase.connected?
+    assert Delayed::Backend::ActiveRecord::Job.connected?
+    begin
+      Delayed::Backend::ActiveRecord::Job.clear_all_connections!
+      refute MysqlBase.connected?
+      refute Delayed::Backend::ActiveRecord::Job.connected?
+    ensure
+      MysqlBase.establish_connection MysqlBase.configurations['mysql'][Rails.env]
+    end
+  end
+
+  it 'can remove_connection properly' do
     my_connection = MysqlBase.connection
     dj_connection = Delayed::Backend::ActiveRecord::Job.connection
     assert my_connection.active?
     assert dj_connection.active?
     begin
-      MysqlBase.remove_connection
+      Delayed::Backend::ActiveRecord::Job.remove_connection
       refute my_connection.active?
       refute dj_connection.active?
     ensure
