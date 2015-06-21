@@ -4,9 +4,18 @@ class Topic7Test < ActionDispatch::IntegrationTest
 
   self.use_transactional_fixtures = true
 
-  before { MysqlBase.connection.begin_transaction joinable: false }
+  before {
+    MysqlBase.connection.increment_open_transactions
+    MysqlBase.connection.transaction_joinable = false
+    MysqlBase.connection.begin_db_transaction
+  }
   before { clear_subscriber_logs ; spaceout_log }
-  after  { MysqlBase.connection.rollback_transaction }
+  after  {
+    if MysqlBase.connection.open_transactions != 0
+      MysqlBase.connection.rollback_db_transaction
+      MysqlBase.connection.decrement_open_transactions
+    end
+  }
 
   it 'implicit cross model' do
     new_mysql_user.account_create = true
