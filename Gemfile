@@ -4,6 +4,8 @@ gem 'rails', '3.2.21'
 gem 'pg'
 gem 'mysql'
 gem 'mysql2'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 group :test do
   gem 'guard'
