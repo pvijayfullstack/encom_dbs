@@ -3,6 +3,10 @@
 
 For full details, please read the blog post here: http://technology.customink.com/blog/2015/06/14/rails-multi-database-best-practices-roundup
 
+### Rails 3.2.x
+
+Please use the [master](https://github.com/customink/encom_dbs/tree/3-2-stable) branch for Rails 4.2.x.
+
 ### Setup
 
 First bundle install and then create the default DBs.
