@@ -23,6 +23,7 @@ $ bundle exec rake db:setup
 * db:create:all - SUCCESS! (all envs)
 * db:create - SUCCESS! (only dev/test envs)
 * db:drop - SUCCESS! (only dev/test envs)
+* db:setup - SUCCESS!
 * db:migrate - SUCCESS!
 * MigrationGenerator - SUCCESS! (rake test failed schema sync)
 * test:prepare - FAILED (test db sync)
