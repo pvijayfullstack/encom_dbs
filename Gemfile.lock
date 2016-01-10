@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/customink/secondbase.git
-  revision: 67e097ea6b507dc50c60ea70cffb105e8d88859a
+  revision: d51785da0a818f78df4acff61167057661eeefbc
   specs:
     secondbase (1.0.0.beta.1)
       rails (~> 4.0)
