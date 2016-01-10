@@ -20,7 +20,7 @@ production:
   <<: *pg
   database: encom_dbs_production
 
-mysql:
+secondbase:
 
   mysql: &mysql
     adapter: mysql

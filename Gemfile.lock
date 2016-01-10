@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/customink/secondbase.git
+  revision: 67e097ea6b507dc50c60ea70cffb105e8d88859a
+  specs:
+    secondbase (1.0.0.beta.1)
+      rails (~> 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -161,6 +168,7 @@ DEPENDENCIES
   mysql2
   pg
   rails (~> 4.2.2)
+  secondbase!
   terminal-notifier-guard
 
 BUNDLED WITH
