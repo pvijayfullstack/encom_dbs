@@ -23,4 +23,4 @@ $ bundle exec rake db:setup
 * db:create:all - SUCCESS! (all envs)
 * db:create - SUCCESS! (only dev/test envs)
 * db:drop - SUCCESS! (only dev/test envs)
-
+* db:migrate - SUCCESS!
