@@ -19,7 +19,8 @@ $ bundle exec rake db:setup
 
 ### SecondBase Integration Tests
 
-* db:drop:all - SUCCESS!
-* db:create:all - SUCCESS!
-
+* db:drop:all - SUCCESS! (all envs)
+* db:create:all - SUCCESS! (all envs)
+* db:create - SUCCESS! (only dev/test envs)
+* db:drop - SUCCESS! (only dev/test envs)
 
