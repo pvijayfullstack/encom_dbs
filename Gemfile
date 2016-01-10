@@ -6,7 +6,7 @@ gem 'mysql'
 gem 'mysql2'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
-gem 'secondbase', github: 'customink/secondbase'
+gem 'secondbase', github: 'customink/secondbase', branch: 'master'
 
 group :test do
   gem 'guard'

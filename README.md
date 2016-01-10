@@ -16,3 +16,10 @@ $ bundle install
 $ bundle exec rake db:create:all
 $ bundle exec rake db:setup
 ```
+
+### SecondBase Integration Tests
+
+* db:drop:all - SUCCESS!
+* db:create:all - SUCCESS!
+
+

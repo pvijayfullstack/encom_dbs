@@ -2,45 +2,37 @@
 pg: &pg
   adapter: postgresql
   encoding: unicode
-  database: encom_dbs_development
-  pool: 5
-  username: encom_dbs
-  password:
-  prepared_statements: false
 
 development:
   <<: *pg
-  database: encom_dbs_development
+  database: encom-pg_development
 
 test:
   <<: *pg
-  database: encom_dbs_test
+  database: encom-pg_test
 
 production:
   <<: *pg
-  database: encom_dbs_production
+  database: encom-pg_production
 
 secondbase:
 
   mysql: &mysql
     adapter: mysql
     encoding: utf8
-    reconnect: false
-    pool: 5
     username: root
     password:
     host: localhost
-    prepared_statements: false
 
   development:
     <<: *mysql
-    database: encom_dbs_development
+    database: encom-mysql_development
 
   test:
     <<: *mysql
-    database: encom_dbs_test
+    database: encom-mysql_test
 
   production:
     <<: *mysql
-    database: encom_dbs_production
+    database: encom-mysql_production
 
