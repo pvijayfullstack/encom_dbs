@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/customink/secondbase.git
-  revision: d51785da0a818f78df4acff61167057661eeefbc
+  revision: 4fdd29c8a98362034933dc272888e50f46a21e27
   branch: master
   specs:
     secondbase (1.0.0.beta.1)

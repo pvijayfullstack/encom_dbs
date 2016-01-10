@@ -1,4 +1,4 @@
-# class User < SecondBase::Base
+class User < SecondBase::Base
 
 
-# end
+end

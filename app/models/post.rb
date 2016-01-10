@@ -1,4 +1,4 @@
-# class Post < SecondBase::Base
+class Post < SecondBase::Base
 
 
-# end
+end
